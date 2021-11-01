@@ -1,0 +1,34 @@
+.block{
+    color: goldenrod;
+}
+
+#eail{
+    margin-top: 1px;
+}
+
+#subject{
+    margin-top: 1px;
+}
+
+.signup{
+    margin-top: 10px;
+}
+
+.already{
+    font-weight: 500;
+}
+
+#alert{
+    display: none;
+}
+
+.margin{
+    margin-top: 12px;
+}
+
+.hidden{
+    display: none;
+}
+
+
+
