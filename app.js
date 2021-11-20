@@ -1,6 +1,7 @@
 var usernamefield = document.getElementById('username');
 var passwordfield = document.getElementById('password');
 var passwordrptfield = document.getElementById('passwordrpt');
+var oldpasswordfield = document.getElementById('oldpassword');
 
 function signup() {
    let username = usernamefield.value;
@@ -68,10 +69,13 @@ function signin() {
    let userindx = database.indexOf(username);
    let pwd = database[userindx + 1];
     if (database.includes(username) == true && password == pwd ) {
-        document.getElementById('alert').className = 'alert alert-success alert-dismissible'
+        /*document.getElementById('alert').className = 'alert alert-success alert-dismissible'
         document.getElementById('alertmessage').innerHTML = 'Correct Username and Password => <strong>Verified</strong>'
         document.getElementById('alert').style.display = 'block';
-        console.log(database);
+        console.log(database);*/
+        localStorage.setItem('username', username);
+        localStorage.setItem('session', 'logged in');
+        location.assign('./session.html')
     } else {
         document.getElementById('alert').className = 'alert alert-danger alert-dismissible'
         document.getElementById('alertmessage').innerHTML = 'Wrong Username or Password!'
@@ -122,4 +126,56 @@ function SiValidate() {
 function clearDB() {
     localStorage.removeItem('db');
     location.reload();
+}
+
+function logout() {
+    localStorage.setItem('session', 'logged out');
+    location.assign('./login.html');
+}
+
+function CpValidate() {
+    let oldpassword = oldpasswordfield.value;
+    let password = passwordfield.value;
+    let passwordrpt = passwordrptfield.value;
+ 
+     if (oldpassword == '') {
+         document.getElementById('changepwd').disabled = true;
+     }
+ 
+     if (password !== passwordrpt ) {
+         document.getElementById('alert').className = 'alert alert-danger alert-dismissible'
+         document.getElementById('alertmessage').innerHTML = 'Passwords do not match.'
+         document.getElementById('alert').style.display = 'block';
+         document.getElementById('changepwd').disabled = true;  
+     } else {
+         document.getElementById('changepwd').disabled = false;
+         document.getElementById('alert').style.display = 'none';
+     }
+ 
+     if (oldpassword !== '' && password !== '' && passwordrpt !== '' && password == passwordrpt ) {
+         document.getElementById('changepwd').disabled = false;
+     } else {
+         document.getElementById('changepwd').disabled = true;
+     }
+ }
+
+function changePassword() {
+   let username = localStorage.getItem('username')
+   let oldpassword = oldpasswordfield.value;
+   let newpassword = passwordfield.value;
+   dbstore = localStorage.getItem('db');
+   const database = JSON.parse(dbstore);
+   let userindx = database.indexOf(username);
+    if (database.includes(username) == true && database[userindx + 1] == oldpassword ) {
+        database[userindx + 1] = newpassword;
+        localStorage.setItem('db', JSON.stringify(database));
+        document.getElementById('alert').className = 'alert alert-success alert-dismissible'
+        document.getElementById('alertmessage').innerHTML = 'Password successfully changed.'
+        document.getElementById('alert').style.display = 'block';
+        console.log(database);
+    } else {
+        document.getElementById('alert').className = 'alert alert-warning alert-dismissible'
+        document.getElementById('alertmessage').innerHTML = 'Old password is incorrect.'
+        document.getElementById('alert').style.display = 'block';
+    }
 }

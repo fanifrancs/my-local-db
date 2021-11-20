@@ -13,7 +13,18 @@
     <link rel="stylesheet" href="./css/footers.css">
     <link rel="stylesheet" href="../bootstrap-5.1.0-dist/css/bootstrap.min.css">
     <link rel="icon" href="./favicon.png">
-    <title>Sign in | My local DB</title>
+    <title>Dashboard | My local DB</title>
+
+    <script>
+        let username = localStorage.getItem('username');
+        let session = localStorage.getItem('session');
+        if (session == 'logged in') {
+            document.getElementById('greeting').innerHTML = 'Welcome '+ username;
+        } else {
+            location.assign('./login.html')
+        }
+    </script>
+
 </head>
 
 <body>
@@ -28,7 +39,10 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
           <ul class="navbar-nav me-auto mb-2">
             <li class="nav-item">
-              <a class="nav-link font-sm" href="./index.html">Sign up</a>
+                <a class="nav-link font-sm" href="./changepassword.html">change password</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-sm" onclick="logout()">logout</a>
             </li>
             <li class="nav-item">
                 <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal" href="#">Submit Feedback</button>
@@ -39,25 +53,19 @@
           </ul>
         </div>
       </div>
-  </nav>
-  </header>
+    </nav>
+  </header> 
 
   <main class="container">
-    <h1>Sign in</h1>
+    <h1 id="greeting">Welcome</h1>
+    <script>
+        document.getElementById('greeting').innerHTML = 'Welcome '+ username;
+      </script>
+    <p>This is your dashboard</p>
     <div id="alert" class="">
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       <span id="alertmessage"></span>
-    </div>
-
-    <form>
-      <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" oninput="SiValidate()" required>
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" oninput="SiValidate()" required>
-      <input disabled class="w-100 btn btn-primary btn-lg signup" type="button" id="sign in" value="Sign in" onclick="signin()">
-    </form><br>
-
-    <p class="already"> Don't have an account yet? <a href="./index.html"><button class="btn btn-success">Sign up</button></a></p>
+    </div> 
   </main>
 
   <div class="container">
@@ -65,7 +73,7 @@
       <p class="col-md-4 mb-0 text-muted">&copy; 2021 <h3>My local <span class="block">DB</span> </h3>
   
       <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#myModal">Submit Feedback</button></a></li>
+        <li class="nav-item"><a class="nav-link px-2 text-muted"><button class="btn btn-sm btn-danger" onclick="logout()">logout</button></a></li>
       </ul>
     </footer>
   </div>
@@ -105,7 +113,6 @@
         </div>
     </div>
   </div>
-  
   
   <script src="./app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
