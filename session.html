@@ -16,6 +16,7 @@
     <title>My local DB</title>
 
     <script>
+        // this script determines if the user is logged in or not and then takes necessary acton.
         let session = localStorage.getItem('session');
         if (session == 'logged in') {
             location.assign('./dashboard.html')

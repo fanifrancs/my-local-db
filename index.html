@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="../bootstrap-5.1.0-dist/css/bootstrap.min.css">
     <link rel="icon" href="./favicon.png">
     <title>Sign up | My local DB</title>
+
+    <script>
+      // this script determines if the user is logged in or not and then takes necessary acton.
+      let session = localStorage.getItem('session');
+      if (session == 'logged in') {
+        location.assign('./dashboard.html')
+      } else {
+        //
+      }
+    </script>
+
 </head>
 
 <body>

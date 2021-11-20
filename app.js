@@ -1,7 +1,7 @@
 var usernamefield = document.getElementById('username');
 var passwordfield = document.getElementById('password');
 var passwordrptfield = document.getElementById('passwordrpt');
-var oldpasswordfield = document.getElementById('oldpassword');
+var currentpasswordfield = document.getElementById('currentpassword');
 
 function signup() {
    let username = usernamefield.value;
@@ -14,36 +14,36 @@ function signup() {
    Function below checks if the database is empty and then initializes the database
    with the first entries.
    */
-   if (dbgrab == null) {
-      const dbinitialize = [];
-      dbinitialize.push(username, password);
-      const database = dbinitialize.concat(dbgrab);
-      //JSON.stringify converts the array 'database' into a string for local storage.
-      localStorage.setItem('db', JSON.stringify(database));
-      document.getElementById('alert').className = 'alert alert-success alert-dismissible'
-      document.getElementById('alertmessage').innerHTML = 'Account successfully created.'
-      document.getElementById('alert').style.display = 'block';
-      console.log(database);
-   }
-   //Function below checks if the username already exists in the database.
-   else if (dbgrab.includes(username)) {
-    document.getElementById('alert').className = 'alert alert-warning alert-dismissible'
-    document.getElementById('alert').style.display = 'block';
-    document.getElementById('alertmessage').innerHTML = 'Username is taken! Choose another one.'
-   }
-   else {
-    //dbhold holds the new username and password to be registered when pushed.
-   const dbhold = [];  
-   dbhold.push(username, password);
-   //database then stores the current entries with the new entries by concat.
-   const database = dbhold.concat(dbgrab);
-   //JSON.stringify converts the array 'database' to a string for local storage.
-   localStorage.setItem('db', JSON.stringify(database));
-   document.getElementById('alert').className = 'alert alert-success alert-dismissible'
-   document.getElementById('alertmessage').innerHTML = 'Account successfully created.'
-   document.getElementById('alert').style.display = 'block';
-   console.log(database);
-   }
+    if (dbgrab == null) {
+        const dbinitialize = [];
+        dbinitialize.push(username, password);
+        const database = dbinitialize.concat(dbgrab);
+        //JSON.stringify converts the array 'database' into a string for local storage.
+        localStorage.setItem('db', JSON.stringify(database));
+        document.getElementById('alert').className = 'alert alert-success alert-dismissible'
+        document.getElementById('alertmessage').innerHTML = 'Account successfully created.'
+        document.getElementById('alert').style.display = 'block';
+        console.log(database);
+    }
+    //Function below checks if the username already exists in the database.
+    else if (dbgrab.includes(username)) {
+        document.getElementById('alert').className = 'alert alert-warning alert-dismissible'
+        document.getElementById('alert').style.display = 'block';
+        document.getElementById('alertmessage').innerHTML = 'Username is taken! Choose another one.'
+    }
+    else {
+        //dbhold holds the new username and password to be registered when pushed.
+        const dbhold = [];  
+        dbhold.push(username, password);
+        //database then stores the current entries with the new entries by concat.
+        const database = dbhold.concat(dbgrab);
+        //JSON.stringify converts the array 'database' to a string for local storage.
+        localStorage.setItem('db', JSON.stringify(database));
+        document.getElementById('alert').className = 'alert alert-success alert-dismissible'
+        document.getElementById('alertmessage').innerHTML = 'Account successfully created.'
+        document.getElementById('alert').style.display = 'block';
+        console.log(database);
+    }
 }
 
 function signin() {
@@ -126,6 +126,7 @@ function SiValidate() {
 function clearDB() {
     localStorage.removeItem('db');
     location.reload();
+    //location.assign('./index.html');
 }
 
 function logout() {
@@ -134,11 +135,11 @@ function logout() {
 }
 
 function CpValidate() {
-    let oldpassword = oldpasswordfield.value;
+    let currentpassword = currentpasswordfield.value;
     let password = passwordfield.value;
     let passwordrpt = passwordrptfield.value;
  
-     if (oldpassword == '') {
+     if (currentpassword == '') {
          document.getElementById('changepwd').disabled = true;
      }
  
@@ -152,7 +153,7 @@ function CpValidate() {
          document.getElementById('alert').style.display = 'none';
      }
  
-     if (oldpassword !== '' && password !== '' && passwordrpt !== '' && password == passwordrpt ) {
+     if (currentpassword !== '' && password !== '' && passwordrpt !== '' && password == passwordrpt ) {
          document.getElementById('changepwd').disabled = false;
      } else {
          document.getElementById('changepwd').disabled = true;
@@ -161,12 +162,12 @@ function CpValidate() {
 
 function changePassword() {
    let username = localStorage.getItem('username')
-   let oldpassword = oldpasswordfield.value;
+   let currentpassword = currentpasswordfield.value;
    let newpassword = passwordfield.value;
    dbstore = localStorage.getItem('db');
    const database = JSON.parse(dbstore);
    let userindx = database.indexOf(username);
-    if (database.includes(username) == true && database[userindx + 1] == oldpassword ) {
+    if (database.includes(username) == true && database[userindx + 1] == currentpassword) {
         database[userindx + 1] = newpassword;
         localStorage.setItem('db', JSON.stringify(database));
         document.getElementById('alert').className = 'alert alert-success alert-dismissible'
@@ -175,7 +176,8 @@ function changePassword() {
         console.log(database);
     } else {
         document.getElementById('alert').className = 'alert alert-warning alert-dismissible'
-        document.getElementById('alertmessage').innerHTML = 'Old password is incorrect.'
+        document.getElementById('alertmessage').innerHTML = 'Current password is incorrect.'
         document.getElementById('alert').style.display = 'block';
+        console.log(database);
     }
 }
