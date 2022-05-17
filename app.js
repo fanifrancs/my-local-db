@@ -62,7 +62,7 @@ function signin() {
     /*
      The userindx variable below gets the index position of the entered username
      and the pwd variable gets the password in the database since a password sits just
-     immediately after an username so the password index would be 1 unit above the 
+     immediately after a username so the password index would be 1 unit above the 
      username index so we have 'userindx + 1' as the password index. This is then used
      to verify the entered username against the entered password. 
     */
@@ -89,10 +89,6 @@ function SuValidate() {
    usernamefield.value = username.toLowerCase();
    let password = passwordfield.value;
    let passwordrpt = passwordrptfield.value;
-
-    if (username == '') {
-        document.getElementById('sign up').disabled = true;
-    }
 
     if (password !== passwordrpt ) {
         document.getElementById('alert').className = 'alert alert-danger alert-dismissible'
